@@ -6,7 +6,7 @@ Powered by [WKWebView](https://developer.apple.com/library/IOs/documentation/Web
 
 Support showing page's loading status with an animated progressBar.
 
-![Screenshot](screenshots/1.png =100x)
+![Screenshot](screenshots/1.png)
 
 ## Features
 
