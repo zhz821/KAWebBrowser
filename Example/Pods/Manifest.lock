@@ -1,0 +1,16 @@
+PODS:
+  - KAWebBrowser (0.1.0)
+
+DEPENDENCIES:
+  - KAWebBrowser (from `../`)
+
+EXTERNAL SOURCES:
+  KAWebBrowser:
+    :path: ../
+
+SPEC CHECKSUMS:
+  KAWebBrowser: bf920ab2815b10d0b14dc46440e361505eefb895
+
+PODFILE CHECKSUM: 6462e25317e4128c794f096a2ba556125def0b9d
+
+COCOAPODS: 1.0.1

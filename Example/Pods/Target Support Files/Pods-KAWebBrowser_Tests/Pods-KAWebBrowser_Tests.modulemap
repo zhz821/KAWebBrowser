@@ -1,0 +1,6 @@
+framework module Pods_KAWebBrowser_Tests {
+  umbrella header "Pods-KAWebBrowser_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

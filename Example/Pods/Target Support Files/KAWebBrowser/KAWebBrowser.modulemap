@@ -1,0 +1,6 @@
+framework module KAWebBrowser {
+  umbrella header "KAWebBrowser-umbrella.h"
+
+  export *
+  module * { export * }
+}

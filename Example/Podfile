@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'KAWebBrowser_Example' do
+  pod 'KAWebBrowser', :path => '../'
+
+  target 'KAWebBrowser_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
