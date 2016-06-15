@@ -77,7 +77,7 @@ public class KAWebBrowser: UIViewController {
 
     private func updateProgressBar(progress: Float) {
         if progress == 1.0 {
-            self.progressBar.setProgress(progress, animated: true)
+            progressBar.setProgress(progress, animated: true)
             UIView.animateWithDuration(1.5, animations: {
                 self.progressBar.alpha = 0.0
                 }, completion: { finished in
@@ -86,10 +86,10 @@ public class KAWebBrowser: UIViewController {
                     }
             })
         } else {
-            if self.progressBar.alpha < 1.0 {
-                self.progressBar.alpha = 1.0
+            if progressBar.alpha < 1.0 {
+                progressBar.alpha = 1.0
             }
-            self.progressBar.setProgress(progress, animated: (progress > progressBar.progress) && true)
+            progressBar.setProgress(progress, animated: (progress > progressBar.progress) && true)
         }
     }
     

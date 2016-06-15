@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KAWebBrowser'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'WKWebView with a progressBar'
 
 # This description is used to generate tags and improve search results.
@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-  KAWebBrowser is a web browser module for your apps. Written in Swift.
-  It contains a WKWebView with a progressBar.
+  KAWebBrowser is a web browser module written in Swift.
+  It contains a WKWebView and a progressBar.
                        DESC
 
   s.homepage         = 'https://github.com/zhz821/KAWebBrowser'
