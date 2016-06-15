@@ -9,6 +9,9 @@
 import UIKit
 import WebKit
 
+private let KVOEstimatedProgress = "estimatedProgress"
+private let KVOTitle = "title"
+
 public class KAWebBrowser: UIViewController {
 
     private lazy var webView: WKWebView = {
@@ -57,13 +60,15 @@ public class KAWebBrowser: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: .AlignAllLeft, metrics: nil, views: ["webView": webView]))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: .AlignAllTop, metrics: nil, views: ["webView": webView]))
         
+        webView.addObserver(self, forKeyPath: KVOTitle, options: .New, context: nil)
+        
         guard let _ = navigationController else {
             print("need UINavigationController to show progressbar")
             return
         }
         
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
-
+        
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         view.addConstraint(NSLayoutConstraint(item: progressBar, attribute: .Top, relatedBy: .Equal, toItem: topLayoutGuide, attribute: .Bottom, multiplier: 1, constant: 0))
@@ -93,14 +98,19 @@ public class KAWebBrowser: UIViewController {
     }
     
     deinit{
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        webView.removeObserver(self, forKeyPath: KVOEstimatedProgress)
+        webView.removeObserver(self, forKeyPath: KVOTitle)
     }
 
     // MARK: - KVO
     
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "estimatedProgress" {
+        if keyPath == KVOEstimatedProgress {
             updateProgressBar(Float(webView.estimatedProgress))
+        }
+        
+        if keyPath == KVOTitle {
+            title = self.webView.title
         }
     }
 

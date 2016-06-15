@@ -14,7 +14,6 @@ Support showing page's loading status with an animated progressBar.
 - [x] Portrait and landscape orientation support
 - [x] Work with existing UINavigationController or present modally
 - [x] Installation with [CocoaPods](http://cocoapods.org/)
-- [ ] Display title
 - [ ] Customizable UI
 - [ ] Customizable Toolbar & action buttons
 
@@ -42,8 +41,6 @@ showViewController(navigationController, sender: nil)
 
 navigationController.webBrowser()?.loadURLString("https://github.com")
 ```
-
----
 
 ## Installation
 
