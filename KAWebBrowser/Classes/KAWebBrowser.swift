@@ -12,73 +12,73 @@ import WebKit
 private let KVOEstimatedProgress = "estimatedProgress"
 private let KVOTitle = "title"
 
-public class KAWebBrowser: UIViewController {
+open class KAWebBrowser: UIViewController {
 
-    private lazy var webView: WKWebView = {
-        let webView = WKWebView(frame: CGRectZero)
+    fileprivate lazy var webView: WKWebView = {
+        let webView = WKWebView(frame: CGRect.zero)
         return webView
     }()
     
-    private lazy var progressBar: UIProgressView = {
+    fileprivate lazy var progressBar: UIProgressView = {
         let progressBar = UIProgressView()
         progressBar.alpha = 0
         return progressBar
     }()
     
-    public class func navigationControllerWithBrowser() -> UINavigationController {
+    open class func navigationControllerWithBrowser() -> UINavigationController {
         let browser = KAWebBrowser()
         
-        let closeBtn = UIBarButtonItem(barButtonSystemItem: .Stop, target: browser, action: #selector(closeButtonPressed))
+        let closeBtn = UIBarButtonItem(barButtonSystemItem: .stop, target: browser, action: #selector(closeButtonPressed))
         browser.navigationItem.leftBarButtonItem = closeBtn
 
         return UINavigationController(rootViewController: browser)
     }
     
-    public func loadURLString(urlString: String) {
-        guard let url = NSURL(string: urlString) else {
+    open func loadURLString(_ urlString: String) {
+        guard let url = URL(string: urlString) else {
             return
         }
         
         loadURL(url)
     }
     
-    public func loadURL(url: NSURL) {
-        let request = NSURLRequest(URL: url)
+    open func loadURL(_ url: URL) {
+        let request = URLRequest(url: url)
         loadRequest(request)
     }
     
-    public func loadRequest(request: NSURLRequest) {
-        webView.loadRequest(request)
+    open func loadRequest(_ request: URLRequest) {
+        webView.load(request)
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: .AlignAllLeft, metrics: nil, views: ["webView": webView]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: .AlignAllTop, metrics: nil, views: ["webView": webView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: .alignAllLeft, metrics: nil, views: ["webView": webView]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: .alignAllTop, metrics: nil, views: ["webView": webView]))
         
-        webView.addObserver(self, forKeyPath: KVOTitle, options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: KVOTitle, options: .new, context: nil)
         
         guard let _ = navigationController else {
             print("need UINavigationController to show progressbar")
             return
         }
         
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: progressBar, attribute: .Top, relatedBy: .Equal, toItem: topLayoutGuide, attribute: .Bottom, multiplier: 1, constant: 0))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[progressBar]|", options: .AlignAllLeft, metrics: nil, views: ["progressBar": progressBar]))
+        view.addConstraint(NSLayoutConstraint(item: progressBar, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[progressBar]|", options: .alignAllLeft, metrics: nil, views: ["progressBar": progressBar]))
     }
 
-    private func updateProgressBar(progress: Float) {
+    fileprivate func updateProgressBar(_ progress: Float) {
         if progress == 1.0 {
             progressBar.setProgress(progress, animated: true)
-            UIView.animateWithDuration(1.5, animations: {
+            UIView.animate(withDuration: 1.5, animations: {
                 self.progressBar.alpha = 0.0
                 }, completion: { finished in
                     if finished {
@@ -94,7 +94,7 @@ public class KAWebBrowser: UIViewController {
     }
     
     func closeButtonPressed() {
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     deinit{
@@ -104,7 +104,7 @@ public class KAWebBrowser: UIViewController {
 
     // MARK: - KVO
     
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == KVOEstimatedProgress {
             updateProgressBar(Float(webView.estimatedProgress))
         }

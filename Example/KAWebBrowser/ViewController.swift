@@ -23,14 +23,14 @@ class ViewController: UIViewController {
 
     @IBAction func pushBtnTapped(sender: AnyObject) {
         let browser = KAWebBrowser()
-        showViewController(browser, sender: nil)
+        show(browser, sender: nil)
         
         browser.loadURLString("https://github.com")
     }
     
     @IBAction func modalBtnTapped(sender: AnyObject) {
         let navigationController = KAWebBrowser.navigationControllerWithBrowser()
-        showViewController(navigationController, sender: nil)
+        show(navigationController, sender: nil)
         
         navigationController.webBrowser()?.loadURLString("https://github.com")
     }
