@@ -93,7 +93,7 @@ open class KAWebBrowser: UIViewController {
         }
     }
     
-    func closeButtonPressed() {
+    @objc func closeButtonPressed() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
